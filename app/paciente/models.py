@@ -1,4 +1,5 @@
-from app.extensions import db 
+from ..extensions import db 
+
 
 class Paciente(db.Model):
     __tablename__ = 'paciente'
@@ -8,6 +9,7 @@ class Paciente(db.Model):
     email = db.Column(db.String(50))
     telefone = db.Column(db.String(12))
     idade = db.Column(db.Integer)
-    genero = db.Column(db.string(10))
+    genero = db.Column(db.String(10))
     consultas = db.relationship("Consulta")
     exames = db.relationship("Exame")
+    receitas = db.relationship("Receita")

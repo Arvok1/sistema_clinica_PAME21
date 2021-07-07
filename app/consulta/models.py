@@ -1,4 +1,4 @@
-from app.extensions import db 
+from ..extensions import db 
 
 
 
@@ -13,3 +13,5 @@ class Consulta(db.Model):
     comentarios = db.Column(db.String(100))
     exames_consulta = db.relationship("Exame")
     receitas = db.relationship("Receita")
+
+    

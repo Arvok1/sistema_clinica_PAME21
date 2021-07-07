@@ -9,4 +9,3 @@ class Remedio(db.Model):
     serve_para = db.Column(db.String(200))
     descricao = db.Column(db.String(300))
     potencia = db.Column(db.Integer)
-    
