@@ -20,7 +20,12 @@ def criar_paciente():
         genero_paciente = dados_paciente["genero"]
         if isinstance(nome_paciente, str) and isinstance(cpf_paciente, int) and (isinstance(email_paciente, str) or email_paciente is None) and isinstance(telefone_paciente, str) and (isinstance(idade_paciente, int) or idade_paciente is None) and (isinstance(genero_paciente, str) or genero_paciente is None):
             paciente_existente = Paciente.query.filter_by(cpf=cpf_paciente)
-            if not paciente_existente:#se paciente não existir, executará as linhas abaixo
+            if paciente_existente:#se paciente existir, executará as linhas abaixo
+                return jsonify(
+                    erro="O paciente já existe"
+                )     
+
+            else:
                 novo_paciente = Paciente(nome = nome_paciente, cpf = cpf_paciente, email=email_paciente, telefone=telefone_paciente, idade = idade_paciente, genero=genero_paciente)
                 #Dá para poupar memória aqui fazendo a criação do objeto de maneira direta
                 #Seria feito da seguinte forma: Paciente(nome=dados_paciente["nome"])
@@ -28,11 +33,7 @@ def criar_paciente():
                 db.session.add(novo_paciente)
                 db.session.commit()
                 paciente_criado = Paciente.query.filter_by(cpf=cpf_paciente)
-                return render_template("paciente_criado.html", paciente=paciente_criado)
-            else:
-                return jsonify(
-                    erro="O paciente já existe"
-                )        
+                return render_template("paciente_criado.html", paciente=paciente_criado)   
         else:
             return jsonify(
                 erro="Alguma informação foi inserida errada"
