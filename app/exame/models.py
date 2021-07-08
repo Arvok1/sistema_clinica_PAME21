@@ -9,6 +9,7 @@ class Exame(db.Model):
     consulta = db.Column(db.Integer, db.ForeignKey('consulta.id'), nullable = True)
     #data não podendo ser nulo evita que exames antigos sejam tratados como exames novos e vice-versa
     data = db.Column(db.Date, nullable = False)
+    horario = db.Column(db.Time(timezone=True))
     #exam_type sempre necessário facilita a organização e impede que, por esquecerem de colocar tal informação
     #seja preciso procurar por vários exames para achar o correto
     exam_type = db.Column(db.String(30), nullable = False)
